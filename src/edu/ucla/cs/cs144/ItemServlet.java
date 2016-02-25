@@ -23,5 +23,7 @@ public class ItemServlet extends HttpServlet implements Servlet {
         String xmlFormattedResult = auctionSearch.getXMLDataForItemId(request.getParameter("itemId")); 
 		out.println(xmlFormattedResult);
 
+        request.setAttribute("dump", xmlFormattedResult);
+        request.getRequestDispatcher("itemDetail.jsp").forward(request, response);
     }
 }

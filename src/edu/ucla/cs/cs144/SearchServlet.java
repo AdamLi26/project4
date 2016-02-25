@@ -18,16 +18,6 @@ public class SearchServlet extends HttpServlet implements Servlet {
     {
         // your codes here
 		response.setContentType("text/html");
-		// PrintWriter out = response.getWriter();
-
-		// Print the HTML header
-		// out.println("<HTML><HEAD><TITLE>");
-		// out.println("Request info");
-		// out.println("</TITLE></HEAD>");
-
-		// Print the HTML body
-		// out.println("<BODY>");
-		// out.println("Parameters:");
 		
 		String query = request.getParameter("q");
 		// out.println("query: " + query);

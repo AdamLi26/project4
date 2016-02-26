@@ -334,3 +334,8 @@ AutoSuggestControl.prototype.typeAhead = function (sSuggestion /*:String*/) {
     }
 };
 
+AutoSuggestControl.prototype.updateProvider = function (oProvider /*:SuggestionProvider*/) {
+    this.provider /*:SuggestionProvider*/ = oProvider;
+}
+
+

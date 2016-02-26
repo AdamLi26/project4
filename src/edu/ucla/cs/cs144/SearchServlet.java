@@ -38,10 +38,13 @@ public class SearchServlet extends HttpServlet implements Servlet {
 		int numToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
 		// request.setAttribute("numResultsToReturn", numToReturn);
 		// out.println("numResultsToReturn: " + numToReturn);
+		
+		request.setAttribute("start", numToSkip);
 
 		AuctionSearchClient auctionSearch = new AuctionSearchClient();
 		SearchResult[] searchResult = auctionSearch.basicSearch(query, numToSkip, numToReturn);
 		// String[] xmlFormattedResult = new String[searchResult.length]; 
+		// out.println(searchResult.length);
 		String[] ids = new String[searchResult.length];
 		String[] names = new String[searchResult.length]; 
 
@@ -51,7 +54,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
 			// xmlFormattedResult[i] = auctionSearch.getXMLDataForItemId(searchResult[i].getItemId());
 			// out.println(xmlFormattedResult[i]);
 		}
-
+		request.setAttribute("numResults", searchResult.length);
 
 		request.setAttribute("idList", ids);
 		request.setAttribute("nameList", names);

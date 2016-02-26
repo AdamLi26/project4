@@ -26,41 +26,52 @@
 		<input type="hidden" name="numResultsToReturn" value="25" >
 		<input type=submit value="search">
 	</form>
-    <table border="2" style="width:100%">
-    <tr>
-    	<td>Number</td>
-    	<td>ItemId</td>
-    	<td>Name</td>
-    </tr>
-	<%
-	    for ( int i = 0; i < ids.length; i++ ) {
-	        %>
-	        <tr>
-	        <td><%= i + start + 1%></td>
-	        <td><a href="item?itemId=<%=ids[i]%>"><%= ids[i] %></a></td>
-	        <td><%= names[i] %></td>
-	        </tr>
-	        <%
-	    }
-	%>
-	</table>
-
-	<div>
-		<form method=GET action="search">
-			<input type="hidden" name="q" value=<%= request.getParameter("q") %> >
-			<input type="hidden" name="numResultsToSkip" 
-							 value=<%= start_if_click_previous %> ><br>
-			<input type="hidden" name="numResultsToReturn" value="25" >
-			<input type=SUBMIT value="Previous Page">
-		</form>
 	
-		<form method=GET action="search">
-			<input type="hidden" name="q" value=<%= request.getParameter("q") %> >
-			<input type="hidden" name="numResultsToSkip" 
-							 value=<%= start_if_click_next %> ><br>
-			<input type="hidden" name="numResultsToReturn" value="25" >
-			<input type=SUBMIT value="Next Page">
-		</form>
-	</div>
+	<%
+		if (numResults==0) {
+			%>
+			<h1>No results found</h1>
+			<%
+		} else {
+			%>
+		    <table border="2" style="width:100%">
+		    <tr>
+		    	<td>Number</td>
+		    	<td>ItemId</td>
+		    	<td>Name</td>
+		    </tr>
+			<%
+			    for ( int i = 0; i < ids.length; i++ ) {
+			        %>
+			        <tr>
+			        <td><%= i + start + 1%></td>
+			        <td><a href="item?itemId=<%=ids[i]%>"><%= ids[i] %></a></td>
+			        <td><%= names[i] %></td>
+			        </tr>
+			        <%
+			    }
+			%>
+			</table>
+
+			<div>
+				<form method=GET action="search">
+					<input type="hidden" name="q" value=<%= request.getParameter("q") %> >
+					<input type="hidden" name="numResultsToSkip" 
+									 value=<%= start_if_click_previous %> ><br>
+					<input type="hidden" name="numResultsToReturn" value="25" >
+					<input type=SUBMIT value="Previous Page">
+				</form>
+			
+				<form method=GET action="search">
+					<input type="hidden" name="q" value=<%= request.getParameter("q") %> >
+					<input type="hidden" name="numResultsToSkip" 
+									 value=<%= start_if_click_next %> ><br>
+					<input type="hidden" name="numResultsToReturn" value="25" >
+					<input type=SUBMIT value="Next Page">
+				</form>
+			</div>
+			<%
+		}
+	%>
 </body>
 </html>

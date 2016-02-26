@@ -37,7 +37,7 @@ StateSuggestions.prototype.callBack = function(){
         console.log(this.httpRequest.responseXML);
         var s = this.httpRequest.responseXML.getElementsByTagName('CompleteSuggestion');
         var aSuggestions = [];
-        this.state = [];
+        this.states = [];
         for (i = 0; i < s.length; i++) {
             this.states.push(s[i].childNodes[0].getAttribute("data"));
         }

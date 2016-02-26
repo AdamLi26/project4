@@ -53,7 +53,7 @@
 	<form method=GET action="item">
 	ItemID: <input type="text" name="itemId" size=20><br>
 	<P><INPUT TYPE=SUBMIT> </br> </br> 
-
+	
 	<strong>Item Name:</strong> <x:out select="$output/Item/Name" /> </br>
 	<strong>ID:</strong> <x:out select="$output/Item/@ItemID" /> </br>
 	<strong>Categories:</strong> <x:forEach select="$output/Item/Category" var="cat"> <x:out select="$cat" />, </x:forEach> </br>
@@ -94,7 +94,7 @@
 
 	<div style="width:100%; height:80%%;">
 	<div id="map_canvas" style="width: 80%; height: 100%; margin: auto;" ></div> 
-	<div>
+	</div>
 
 </body>
 </html>

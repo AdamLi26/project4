@@ -4,6 +4,7 @@
  * @class
  * @scope public
  */
+
 function StateSuggestions(suggestions) {
     this.states = suggestions;
 }

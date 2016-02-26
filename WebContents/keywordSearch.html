@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html>
-<title>Search</title>
-<h1>Keyword Search Page</h1>
-<body>
-	<form method=GET action="search">
-		Keyword: <input type="text" name="q" size=60><br>
-		<input type="hidden" name="numResultsToSkip" value="0" >
-		<input type="hidden" name="numResultsToReturn" value="25" >
-		<input type=submit value="search">
-	</form>
-</body>
+	<head>
+		<title>Search</title>
+        <script type="text/javascript">
+ 			var xmlHttp = new XMLHttpRequest(); // works only for Firefox, Safari, ...
+ 			// send Google suggest request based on the user input
+			 function sendAjaxRequest(input)
+			 {
+				 var request = "suggest?q="+encodeURI(input);
+
+				 xmlHttp.open("GET", request);
+				 xmlHttp.onreadystatechange = showSuggestion;
+				 xmlHttp.send(null);
+			 }
+
+			 // update Web page with the response from Google suggest
+			 function showSuggestion() {
+				  if (xmlHttp.readyState == 4) {
+				    // get the CompleteSuggestion elements from the response
+				    var s = xmlHttp.responseXML.getElementsByTagName('CompleteSuggestion');
+				 
+				    // construct a bullet list from the suggestions
+				    var htmlCode = "<ul>";
+				    for (i = 0; i < s.length; i++) {
+				       var text = s[i].childNodes[0].getAttribute("data");
+
+				       htmlCode += "<li><b>" + text + "</b></li>";
+				    }
+				    htmlCode += "</ul>";
+
+				    // display the list on the page
+				    document.getElementById("suggestion").innerHTML = htmlCode;
+				  }
+			}
+		 </script>
+	</head>
+	<h1>Keyword Search Page</h1>
+	<body>
+		<form method=GET action="search">
+			Keyword: <input type="text" name="q" size=60 onkeyup="sendAjaxRequest(this.value);"><br>
+			<input type="hidden" name="numResultsToSkip" value="0" >
+			<input type="hidden" name="numResultsToReturn" value="25" >
+			<input type=submit value="search">
+		</form>
+		<pre id="suggestion"></pre>
+	</body>
 </html>

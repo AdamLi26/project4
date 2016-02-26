@@ -5,8 +5,9 @@
 	String dump = (String) request.getAttribute("dump");
 %>
 
-
+<c:if test="${dump != \"\"}">
 <x:parse xml="${dump}" var="output"/>
+</c:if>
 
 <html>
 <head>
@@ -50,10 +51,14 @@
 </head>
 <body onload="initialize()">
 
-	<form method=GET action="item">
+<form method=GET action="item">
 	ItemID: <input type="text" name="itemId" size=20><br>
 	<P><INPUT TYPE=SUBMIT> </br> </br> 
+
+<c:choose>
 	
+	<c:when test="${dump != \"\"}">
+
 	<strong>Item Name:</strong> <x:out select="$output/Item/Name" /> </br>
 	<strong>ID:</strong> <x:out select="$output/Item/@ItemID" /> </br>
 	<strong>Categories:</strong> <x:forEach select="$output/Item/Category" var="cat"> <x:out select="$cat" />, </x:forEach> </br>
@@ -93,8 +98,16 @@
 	</x:if>
 
 	<div style="width:100%; height:80%%;">
-	<div id="map_canvas" style="width: 80%; height: 100%; margin: auto;" ></div> 
-	</div>
+
+	<div id="map_canvas" style="width: 80%; height: 100%; margin: auto;" >
+	</div> 
+
+	</c:when>
+
+	<c:otherwise>
+		<h1>The page you are looking for is NOT FOUND</h1>
+	</c:otherwise>
+</c:choose>
 
 </body>
 </html>

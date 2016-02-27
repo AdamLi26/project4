@@ -17,42 +17,46 @@
 	</script> 
 	<script type="text/javascript"> 
 		var defaultMode = false;
+		var Zoom = 12;
   		function initialize() { 
   			var latitude=document.getElementById("Lat").innerHTML;
   			var longitude=document.getElementById("Lng").innerHTML;
-  			
   			if(latitude=="" || longitude==""){
   				defaultMode = true;
-  				latitude="34.063509";
-  				longitude="-118.44541";
+  				latitude="0";
+  				longitude="0";
+  				Zoom = 1;
   			}else{
   				defaultMode = false;
   			}
 
     		var latlng = new google.maps.LatLng(parseFloat(latitude),parseFloat(longitude)); 
     		var myOptions = { 
-      		zoom: 12, // default is 8  
+      		zoom: Zoom, // default is 8  
       		center: latlng, 
       		mapTypeId: google.maps.MapTypeId.ROADMAP 
     		}; 
     		var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions); 
 
     		var geocoder=new google.maps.Geocoder();
-    		var address = document.getElementById("location").innerHTML +"," + document.getElementById("country").innerHTML;
+    		var address = document.getElementById("location").innerHTML +", " + document.getElementById("country").innerHTML;
     		console.log(address);
     		geocoder.geocode({'address': address},function(results, status){
     			if (status == google.maps.GeocoderStatus.OK){
-    				if(defaultMode)
+    				if(defaultMode){
     					map.setCenter(results[0].geometry.location);
+    					map.setZoom(12);
+    				}
     			}
     		});
   		} 
+
 </script>
 </head>
 <body onload="initialize()">
 
 <form method=GET action="item">
-	ItemID: <input type="text" name="itemId" size=20><br>
+	ItemID: <input id="entry" type="text" name="itemId" size=20 required><br>
 	<P><INPUT TYPE=SUBMIT> </br> </br> 
 
 <c:choose>
@@ -65,7 +69,9 @@
 	<strong>Currently:</strong> <x:out select="$output/Item/Currently" />  </br>
 	<strong>First Bid:</strong> <x:out select="$output/Item/First_Bid" />  </br>
 	<strong>Number of Bid(s):</strong> <x:out select="$output/Item/Number_of_Bids" /> </br>
-
+	<x:if select="$output/Item/Buy_Price">
+		<strong>Buy Price: </strong><x:out select="$output/Item/Buy_Price"/></br>
+	</x:if>
 	<ul>
 	<x:forEach select="$output/Item/Bids/Bid" var="bid">
 	<li> <strong>Bidder:</strong> <x:out select="$bid/Bidder/@UserID"/>  </br>

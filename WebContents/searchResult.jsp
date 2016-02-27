@@ -31,7 +31,7 @@
 </head>
 <body>
 	<form method=GET action="search">
-		Keyword: <input id="txt1" type="text" name="q" size=60 autocomplete="off"><br>
+		Keyword: <input id="txt1" type="text" name="q" size=60 autocomplete="off" required><br>
 		<input type="hidden" name="numResultsToSkip" value="0" >
 		<input type="hidden" name="numResultsToReturn" value="25" >
 		<input type=submit value="search">

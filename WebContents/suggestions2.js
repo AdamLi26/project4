@@ -34,21 +34,21 @@ StateSuggestions.prototype.requestSuggestions = function (oAutoSuggestControl /*
 
 StateSuggestions.prototype.callBack = function(){
     if (xmlHttp.readyState == 4) {
-        console.log(this.httpRequest.responseXML);
-        var s = this.httpRequest.responseXML.getElementsByTagName('CompleteSuggestion');
+        
         var aSuggestions = [];
         this.states = [];
-        for (i = 0; i < s.length; i++) {
-            this.states.push(s[i].childNodes[0].getAttribute("data"));
-        }
+        if(this.httpRequest.responseXML!=null){
+            var s = this.httpRequest.responseXML.getElementsByTagName('CompleteSuggestion');
+            for (i = 0; i < s.length; i++) {
+                this.states.push(s[i].childNodes[0].getAttribute("data"));
+            }
 
-        if (this.sTextboxValue.length > 0){
-    
-            //search for matching states
-            for (var i=0; i < this.states.length; i++) { 
-                if (this.states[i].indexOf(this.sTextboxValue) == 0) {
-                    aSuggestions.push(this.states[i]);
-                } 
+            if (this.sTextboxValue.length > 0){
+                for (var i=0; i < this.states.length; i++) { 
+                    if (this.states[i].indexOf(this.sTextboxValue) == 0) {
+                        aSuggestions.push(this.states[i]);
+                    } 
+                }
             }
         }
 

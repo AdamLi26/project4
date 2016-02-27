@@ -18,10 +18,20 @@
 <html>
 <head>
     <title>Result</title>
+    <script type="text/javascript" src="autosuggest2.js"></script>
+        <script type="text/javascript" src="suggestions2.js"></script>
+        <link rel="stylesheet" type="text/css" href="autosuggest.css" />
+        <script type="text/javascript">
+ 			var xmlHttp = new XMLHttpRequest(); // works only for Firefox, Safari, ...
+ 			
+ 			window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("txt1"), new StateSuggestions(xmlHttp));        
+            }
+		</script>
 </head>
 <body>
 	<form method=GET action="search">
-		Keyword: <input type="text" name="q" size=60><br>
+		Keyword: <input id="txt1" type="text" name="q" size=60 autocomplete="off"><br>
 		<input type="hidden" name="numResultsToSkip" value="0" >
 		<input type="hidden" name="numResultsToReturn" value="25" >
 		<input type=submit value="search">
